@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>Student Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Thống kê tổng số học sinh</h2>
+      <h6>Ngày {{day}}</h6>
+      <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: center;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+      </style>
+      <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Khối</th>
+          <th>Tên lớp</th>
+          <th>Số học sinh</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for i in student %}
+          <tr>
+            <th>{{i.ma_khoi__ten_khoi}}</th>
+            <td>{{i.lop}}</td>
+            <td>{{i.si_so}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </body>
+</html>

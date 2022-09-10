@@ -1,0 +1,106 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">TUYỂN SINH</h2>
+              <br>
+              <p>Trường Phổ thông năng khiếu tuyển sinh trên phạm vi toàn quốc trên nguyên tắc đảm bảo chính xác, khách quan, công bằng; đảm bảo lựa chọn được những học sinh có tư chất thông minh, đạt kết quả học tập xuất sắc ở cấp trung học cơ sở, đủ năng lực học lớp chuyên.</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Tuyển sinh</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                    <div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0">
+                        <img src="https://cdn.discordapp.com/attachments/848543264783990804/1018158852228780053/ptnk-entrance.jpg" alt="Image" class="img-fluid"> 
+                    </div>
+                    <div class="col-lg-6 mr-auto align-self-center order-2 order-lg-1">
+                        <h2 class="section-title-underline mb-5">
+                            <span>Thông tin</span>
+                        </h2>
+                        <p>Hằng năm, vào cuối tháng 5, nhà trường tổ chức kỳ thi tuyển sinh vào lớp 10. Học sinh được tham gia dự thi khi có đủ các điều kiện sau:</p>
+                        <ol class="ul-check primary list-unstyled">
+                                <li>1. Tuổi của học sinh vào học lớp 10 Trường PTNK là 15 tuổi. Đối với những học sinh được học vượt lớp ở cấp trung học cơ sở (THCS) hoặc học sinh vào cấp THCS ở độ tuổi cao hơn tuổi quy định thì tuổi vào lớp 10 được giảm hoặc tăng căn cứ vào tuổi của năm tốt nghiệp cấp THCS.</li>
+                                <li>2. Xếp loại hạnh kiểm, học lực cả năm học của các lớp cấp THCS từ khá trở lên;</li>
+                                <li>3. Xếp loại tốt nghiệp trung học cơ sở từ khá trở lên.</li>   
+                        </ol>
+                        <p>Dựa trên kết quả kỳ thi tuyển sinh, trong tháng 6, Hội đồng tuyển sinh sẽ họp và xét điểm chuẩn vào các lớp 10 của trường. Việc nhập học sẽ được triển khai ngay sau khi công bố.</p>
+                        <p>Thông báo về kỳ thi tuyển sinh hàng năm sẽ được công bố vào nửa đầu tháng 3 mỗi năm.</p>
+                    </div>
+              </div>
+              <div class="row mb-5">
+                <div class="col-lg-6 mb-lg-0 mb-4">
+                  <br>
+                  <h2 class="section-title-underline mb-5">
+                    <span>Đăng ký tuyển sinh <script>document.write(new Date().getFullYear());</script></span>
+                  </h2>
+                  <form class="form" method="post" action="{% url 'school:entrance.html' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                          {{form.name}}
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          {{form.email}}
+                        </div>	
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          {{form.phone_number}}
+                        </div>	
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          {{form.school}}
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          {{form.classroom}}
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group button">
+                          <input type="submit" value="GỬI THÔNG TIN" class="btn btn-primary btn-lg px-5">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="title">
+                    <h7 style="color:blue;">{{result}}</h6>
+                  </div>
+                </div>
+                <div class="col-lg-5 ml-auto align-self-center">
+                    <h2 class="section-title-underline mb-5">
+                        <span>Thông tin liên hệ</span>
+                    </h2>
+                    <p>Trường Phổ Thông Năng Khiếu, ĐHQG-HCM</p>
+                    <p>CS 1: 153 Nguyễn Chí Thanh, Q.5, TP.HCM</p>
+                    <p>CS 2: Khu đô thị ĐHQG-HCM</p>
+                    <p>Tel: (+84) 028. 838533703 –  838533704</p>
+                    <p>Facebook: <a href='http://facebook.com/HSGVNUHCM' target='_blank'>http://facebook.com/HSGVNUHCM</a></p>
+                    <p>Website: <a href='#'>www.ptnk.herokuapp.com</a></p>
+  
+                </div>
+              </div>
+
+        </div>
+    </div>
+{% endblock %}

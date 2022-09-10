@@ -1,0 +1,45 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-7">
+        <h2 class="mb-0">RSS FEEDS</h2>
+        <br>
+        <p>Nguồn RSS về giáo dục.</p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="custom-breadcrumns border-bottom">
+  <div class="container">
+    <a href="{% url 'school:index.html' %}">Trang chủ</a>
+    <span class="mx-3 icon-keyboard_arrow_right"></span>
+    <span class="current">Rss Feeds</span>
+  </div>
+</div>
+
+<div class="site-section">
+  <div class="container">
+      <div class="row">
+        {% if feeds %}
+        {% for entry in feeds %}
+          <div class="col-lg-4 col-md-6 mb-4">
+              <div class="course-1-item">
+                  <figure class="thumnail">
+                    <div class="category"><h3>{{entry.title}}</h3></div>
+                  </figure>
+                  <div class="course-1-content pb-4">
+                  <h2>{{entry.author}} - {{entry.published}}</h2>
+                  <p class="desc mb-4">{{entry.summary|safe}}</p>
+                  </div>
+              </div>
+           </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+  </div>
+</div>
+{% endblock %}

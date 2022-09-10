@@ -1,0 +1,271 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">BÀI VIẾT</h2>
+              <br>
+              <p>Cập nhật thông tin mới nhất.</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a href="{% url 'school:blog.html' latest.pk %}">Bài viết</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">{% if blogs %}{% for blog in blogs %}{{blog.tieu_de}}{%endfor%}{%endif%}</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+              {% if blogs %}
+                {% for blog in blogs %}
+                <div class="col-md-6 mb-4">
+                    <p>
+                        <img src='{{blog.hinh.url}}' alt="{{blog.tieu_de}}" class="img-fluid">
+                    </p>
+                </div>
+                <div class="col-lg-6 ml-auto align-self-center">
+                        <h2 class="section-title-underline mb-5">
+                            <span>{{blog.tieu_de}}</span>
+                        </h2>
+                        
+                        <p><div class="text-black d-block"><div style="font-size: 20px;" class="ti-eye text-left"> {{blog.viewed}} <span style="font-size: 15px;" class="ti-comment text-left"></span> {{blog.comments}}</div></div></p>
+                        <p class="mb-5"><strong class="text-black d-block">{{blog.nguoi_gui}} - {{blog.ngay_xuat_ban}}</p>
+                        <p>{{blog.tom_tat}}</p>
+                        <p>{{blog.noi_dung|safe}}</p>
+                        <p><a href="{{blog.nguon}}"><span class="text-black d-block">Nguồn: </span>{{blog.nguon|truncatechars:55}}</a></p>                          
+                </div>
+                {% endfor %}
+             {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="site-section ftco-subscribe-1" style="background-image: url('images/bg_1.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7">
+            {% if com %}
+            {% for comment in com %}
+              <div class="ftco-testimonial-1">
+                <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+                  <img src='{{comment.avatar.url}}' alt="Image" class="img-fluid mr-3">
+                  <div>
+                    <h3>{{comment.name}}</h3>
+                    <span>{{comment.created}}</span>
+                  </div>
+                </div>
+                <div>
+                  <p>{{comment.content}}</p>
+                </div>
+                <hr>
+                <style>
+                  .btn:focus {
+                    outline: none;             
+                  }
+                  button{
+                    cursor: pointer;
+                    outline: 0;
+                    color: #AAA;
+                  
+                  }
+                </style>
+                {% if username %}
+                <form class="form" method="post" action="{% url 'school:blog-detail.html' pk %}">
+                  {% csrf_token %}
+                  {% for like in likes_list %}
+                  {% if like.comment_id == comment.pk %}
+                  {% if like.islike %}
+                  <button class="btn" style="background: #5c7494;  color: green;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="u"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"> {{comment.total_likes}}</i></button>
+                  <button class="btn" style="background: #5c7494;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="d"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"> {{comment.total_dislikes}}</i></button>
+                  {% else %}
+                  <button class="btn" style="background: #5c7494;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="u"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"> {{comment.total_likes}}</i></button>
+                  <button class="btn" style="background: #5c7494; color: red;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="d"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"> {{comment.total_dislikes}}</i></button>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+
+                  {% if not likes_list %}
+                  <button class="btn" style="background: #5c7494;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="u"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"> {{comment.total_likes}}</i></button>
+                  <button class="btn" style="background: #5c7494;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="d"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"> {{comment.total_dislikes}}</i></button>
+                  {% else %}
+                  {% for notlike in not_likes_list%}
+                  {% if notlike == comment.pk %}
+                  <button class="btn" style="background: #5c7494;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="u"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"> {{comment.total_likes}}</i></button>
+                  <button class="btn" style="background: #5c7494;" href="{% url 'school:blog-detail.html' pk%}"  value="{{comment.pk}}" name="d"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"> {{comment.total_dislikes}}</i></button>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                </form>
+                {% else %}
+                <button class="btn" style="background: #5c7494;" onclick="Alert()"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"> {{comment.total_likes}}</i></button>
+                <button class="btn" style="background: #5c7494;" onclick="Alert()"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true"> {{comment.total_dislikes}}</i></button>
+                {% endif %}
+                <script>
+                  function Alert(){
+                    alert('Vui lòng đăng nhập để sử dụng chức năng này!');}
+                </script>
+                <hr>
+              </div>
+            {% endfor %}
+            {% else %}
+                <p>Bài viết không có bình luận nào.</p>
+            {% endif %}
+            <div class="row">
+              <div class="col-12 text-center pb-4 pt-4">     
+                {% if com %}                   
+                    {% if com.has_other_pages %}
+                    <div class="btn-group" role="group" aria-label="Item pagination">
+                        {% if com.has_previous %}
+                            <a href="?page=1"  class="btn btn-primary">&laquo;</a>
+                            <a href="?page={{ com.previous_page_number }}"
+                            class="btn btn-primary">&lt;</a>
+                        {% endif %}
+    
+                        {% if com.number|add:'-2' > 2 %}
+                          <a href="?page={{ com.number|add:'-3' }}" class="btn btn-primary">&hellip;</a>
+                        {% endif %}
+            
+        
+                        {% for i in com.paginator.page_range %}
+                            {% if com.number == i %}
+                                <button class="btn btn-primary active">
+                                    <span>{{ i }} <span class="sr-only">(current)</span></span>
+                                </button>
+                            {% elif i > com.number|add:'-3' and i < com.number|add:'3'  %}
+                                <a href="?page={{ i }}" class="btn btn-primary">
+                                    {{ i }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+    
+                        {% if com.paginator.num_pages > com.number|add:'2' %}
+                          <a href="?page={{ com.number|add:'3' }}" class="btn btn-primary">&hellip;</a>
+                        {% endif %}
+        
+                        {% if com.has_next %}
+                            <a href="?page={{ com.next_page_number }}" class="btn btn-primary">&gt;</a>
+                            <a href="?page={{ com.paginator.num_pages }}" class="btn btn-primary">&raquo;</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="col-lg-5 mr-auto align-self-center">
+              <h2 class="section-title-underline mb-5">
+                  <span>Bình luận </span>
+              </h2>
+            </div>
+            <form class="form" method="post" id = "commentform" action="{% url 'school:blog-detail.html' pk%}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    {% if username %}
+                    <div class="form-control fh5co_contact_text_box">
+                    {{username}}
+                    </div>
+                    {% else %}
+                    {{form.name}}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    {{form.email}}
+                  </div>	
+                </div>
+                <div class="col-12">
+                  <div class="form-group message">
+                    {{form.content}}
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group button">
+                    <input type="submit" value="Gửi" class="btn btn-primary btn-lg">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> 
+
+    <div class="news-updates">
+      <div class="container">
+         
+        <div class="row">
+          <div class="col-lg-9">
+             <div class="section-heading">
+              <h2 class="text-black">Tin Mới Cập Nhật</h2>
+              <a href="{% url 'school:blog.html' latest.pk %}">Đọc thêm tin</a>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="post-entry-big">
+                  <a href="{% url 'school:entrance-score.html' %}" class="img-link"><img src="https://cdn.discordapp.com/attachments/848543264783990804/1018159484788539453/ts.jpg" alt="Image" class="img-fluid"></a>
+                  <div class="post-content">
+                    <div class="post-meta"> 
+                      <a href="{% url 'school:entrance-score.html' %}">June, 2022</a>
+                      <span class="mx-1">/</span>
+                      <a href="{% url 'school:entrance-score.html' %}">Tuyển sinh</a>, <a href="{% url 'school:entrance-score.html' %}">Mới</a>
+                    </div>
+                    <h3 class="post-heading"><a href="{% url 'school:entrance-score.html' %}">Tra cứu kết quả tuyển sinh trường PTNK</a></h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                {% if three_newest %}
+                {% for blog in three_newest %}
+                <div class="post-entry-big horizontal d-flex mb-4">
+                  <a href="{% url 'school:blog-detail.html' blog.pk%}" class="img-link mr-4"><img src="{{blog.hinh.url}}" alt="Image" class="img-fluid"></a>
+                  <div class="post-content">
+                    <div class="post-meta">
+                      <a href="{% url 'school:blog-detail.html' blog.pk%}">{{blog.ngay_gui_bai}}</a>
+                      <span class="mx-1">/</span>
+                      <a href="{% url 'school:blog-detail.html' blog.pk%}">{{blog.ma_muc}}</a>, <a href="{% url 'school:blog-detail.html' blog.pk%}">{{blog.ma_trang_thai}}</a>
+                    </div>
+                    <h3 class="post-heading"><a href="{% url 'school:blog-detail.html' blog.pk%}">{{blog.tieu_de}}</a></h3>
+                  </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="section-heading">
+              <h2 class="text-black">Video Phổ Biến</h2>
+              <a href="https://www.youtube.com/hashtag/ptnk" target="_blank">Xem thêm video</a>
+            </div>
+            <a>
+            <iframe id="video" width="100%" height="200"
+                                    src="https://www.youtube.com/embed/tcaDY5p0vtM?rel=0&amp;showinfo=0" frameborder="0"
+                                    allowfullscreen></iframe>
+            </a>
+            <a>
+              <iframe id="video" width="100%" height="200"
+                                      src="https://www.youtube.com/embed/rLzfcOU_YOc?rel=0&amp;showinfo=0" frameborder="0"
+                                      allowfullscreen></iframe>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

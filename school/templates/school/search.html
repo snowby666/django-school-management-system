@@ -1,0 +1,80 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}   
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">TÌM KIẾM</h2>
+              <br>
+              <p>Tìm kiếm những bài viết và tài liệu có nội dung liên quan.</p>
+            </div>
+          </div>
+        </div>
+    </div> 
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Tìm kiếm</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 mb-4">
+                {% if numbers %}
+                <h2 class="section-title-underline mb-5"><span>Tìm thấy {{numbers}} bài viết có liên quan</span></h2>
+                {% else %}
+                <h2 class="section-title-underline mb-5"><span>Không tìm thấy bài viết nào</span></h2>
+                {% endif%}
+                <div class="course-1-item">
+                {% if blogs %}
+                    {% for blog in blogs %}
+                    <figure class="thumnail">
+                      <a href="{% url 'school:blog-detail.html' blog.pk%}"><img src='{{blog.hinh.url}}' alt="Image" class="img-fluid"></a>
+                      <div class="category"><h3>{{blog.tieu_de}}</h3><div style="color:white; font-size: 20px;" class="ti-eye text-right"> {{blog.viewed}} <span style="color:white; font-size: 15px;" class="ti-comment text-right"></span> {{blog.comments}}</div></div>
+                    </figure>
+                    <div class="course-1-content pb-4">
+                    <h2>{{blog.nguoi_gui}} - {{blog.ngay_xuat_ban}}</h2>
+                    <p class="desc mb-4">{{blog.tom_tat|truncatewords:30}}</p>
+                    <p><a href="{% url 'school:blog-detail.html' blog.pk%}" class="btn btn-primary rounded-0 px-4">Đọc tiếp...</a></p>
+                    </div>
+                    {% endfor %}
+                {% endif %} 
+                </div>
+              </div>
+
+             <div class="col-lg-5 ml-auto">
+              {% if numbers2 %}
+              <h5>Tìm thấy {{numbers2}} tài liệu có liên quan</h5>
+              {% else %}
+              <h5>Không tìm thấy tài liệu nào</h5>
+              {% endif%}
+              {% if username %}
+              <div class="course-1-item">
+                {% if docs %}
+                  {% for doc in docs %}
+                  <div class="post-content">
+                    <div class="post-meta">
+                      <a href="#">{{doc.ngay_upload}}</a>
+                      <span class="mx-1">/</span>
+                      <a href="#">{{doc.ma_khoi}}</a>, <a href="#">{{doc.ma_mon}}</a>
+                    </div>
+                    <h3 class="post-heading"><a href="news-single.html">{{doc.ten_tai_lieu|truncatewords:20}}</a></h3>
+                    <h6 class="content">{{doc.tom_tat|truncatewords:50}}</h6>
+                  </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              {% else %}
+              <h5>Vui lòng đăng nhập để xem nội dung này</h5>
+              {% endif %}
+              </div>
+           </div>
+        </div>
+    </div>
+
+{% endblock %}

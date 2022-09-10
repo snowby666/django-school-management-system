@@ -1,0 +1,136 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}   
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">KẾT QUẢ TUYỂN SINH</h2>
+              <br>
+              <p>Kết quả tuyển sinh đã được đăng tải. Bạn có thể dùng Số Báo Danh để tra cứu điểm thi của mình.</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Kết quả tuyển sinh</span>
+      </div>
+    </div>
+
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      .withscroll {
+        overflow-x: scroll;
+        white-space: nowrap;
+      }
+      </style>
+
+
+
+
+  {% if score %}
+  {% for i in score %}
+    <div class="withscroll">
+    <table>
+      <tr>
+        <th>Số báo danh</th>
+        <th>Họ và Tên</th>
+      </tr>
+      <tr>
+        <th>{{i.SBD}}</th>
+        <th>{{i.name}}</th>
+      </tr>
+    </table>
+    </div>
+    <br>
+    <div class="withscroll">
+    <table>
+      <tr>
+        <th>Toán</th>
+        <th>Ngữ Văn</th>
+        <th>Vật Lý</th>
+        <th>Hóa Học</th>
+        <th>Lịch Sử</th>
+        <th>Địa Lý</th>
+        <th>Tin Học</th>
+        <th>Ngoại Ngữ</th>
+        <th>Sinh Học</th>
+      </tr>
+
+      <tr>
+        <th>{{i.toan}}</th>
+        <th>{{i.van}}</th>
+        <th>{{i.ly}}</th>
+        <th>{{i.hoa}}</th>
+        <th>{{i.su}}</th>
+        <th>{{i.dia}}</th>
+        <th>{{i.tin}}</th>
+        <th>{{i.nn}}</th>
+        <th>{{i.sinh}}</th>
+      </tr>
+    </table>
+    </div>
+
+  {% endfor %}
+  {% else %}
+  <div class="site-section">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 mb-4">
+          
+            <h3>Vui lòng nhập Số Báo Danh hợp lệ.</h3>
+        
+          </div>
+        </div>
+    </div>
+  </div>
+  {% endif %}
+
+    <div class="site-section ftco-subscribe-1" style="background-image: url('https://sachvui.vn/wp-content/uploads/review-book-site.jpg')">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h2>Hệ thống tra cứu điểm thi!</h2>
+            <p>Nhập Số Báo Danh hợp lệ để tra cứu điểm thi của bạn</p>
+          </div>
+          <div class="col-lg-5">
+            <form action="{% url 'school:entrance-score.html' %}" method="GET">
+            
+              <div class="input-group">
+                  <input type="text" placeholder="Tra cứu ngay..." value="{{search_str2}}"
+                   class="form-control" name="key">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">
+                          <i class="ti ti-search"></i>
+                      </button>
+                  </div>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div> 
+
+
+
+    
+{% endblock %}

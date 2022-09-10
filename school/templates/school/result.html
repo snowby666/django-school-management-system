@@ -1,0 +1,495 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}   
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">KẾT QUẢ HỌC TẬP</h2>
+              <br>
+              <p>Kết quả học tập đã được đăng tải. Bạn có thể dùng Mã Học Sinh để tra cứu kết quả của mình.</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Kết quả học tập</span>
+      </div>
+    </div>
+
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      .withscroll {
+        overflow-x: scroll;
+        white-space: nowrap;
+      }
+      </style>
+
+
+
+
+  {% if profile %}
+  {% for i in profile %}
+    <div class="withscroll">
+    <table>
+      <tr>
+        <th>Mã HS</th>
+        <th>Họ và Tên</th>
+        <th>Lớp</th>
+        <th>Học kỳ</th>
+      </tr>
+      <tr>
+        <th>{{i.MaHs}}</th>
+        <th>{{i.name}}</th>
+        <th>{{i.lop_id}}</th>
+        {% if hk %}
+        <th>{{hk}}</th>
+        {% endif %}
+      </tr>
+    </table>
+    </div>
+    <br>
+    <div class="withscroll">
+    <table>
+      <tr>
+        <th>ĐIỂM THI</th>
+        <th>Toán</th>
+        <th>Ngữ Văn</th>
+        <th>Vật Lý</th>
+        <th>Hóa Học</th>
+        <th>Lịch Sử</th>
+        <th>Địa Lý</th>
+        <th>Tin Học</th>
+        <th>Ngoại Ngữ</th>
+        <th>Sinh Học</th>
+      </tr>
+      {% if hk %}
+      <tr>
+        <th>Thường xuyên 1</th>
+        {% if min_toan %}
+        <th>{% for result in min_toan %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_van %}
+        <th>{% for result in min_van %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_ly %}
+        <th>{% for result in min_ly %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_hoa %}
+        <th>{% for result in min_hoa %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_su %}
+        <th>{% for result in min_su %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_dia %}
+        <th>{% for result in min_dia %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_tin %}
+        <th>{% for result in min_tin %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_nn %}
+        <th>{% for result in min_nn %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_sinh %}
+        <th>{% for result in min_sinh %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+      <tr>
+        <th>Thường xuyên 2</th>
+        {% if min_toan %}
+        <th>{% for result in min_toan %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_van %}
+        <th>{% for result in min_van %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_ly %}
+        <th>{% for result in min_ly %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_hoa %}
+        <th>{% for result in min_hoa %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_su %}
+        <th>{% for result in min_su %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_dia %}
+        <th>{% for result in min_dia %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_tin %}
+        <th>{% for result in min_tin %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_nn %}
+        <th>{% for result in min_nn %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_sinh %}
+        <th>{% for result in min_sinh %}{% if result.lan_thi == 2%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+      <tr>
+        <th>Thường xuyên 3</th>
+        {% if min_toan %}
+        <th>{% for result in min_toan %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_van %}
+        <th>{% for result in min_van %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_ly %}
+        <th>{% for result in min_ly %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_hoa %}
+        <th>{% for result in min_hoa %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_su %}
+        <th>{% for result in min_su %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_dia %}
+        <th>{% for result in min_dia %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_tin %}
+        <th>{% for result in min_tin %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_nn %}
+        <th>{% for result in min_nn %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if min_sinh %}
+        <th>{% for result in min_sinh %}{% if result.lan_thi == 3%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+      <tr>
+        <th>Giữa kỳ</th>
+        {% if mid_toan %}
+        <th>{% for result in mid_toan %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_van %}
+        <th>{% for result in mid_van %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_ly %}
+        <th>{% for result in mid_ly %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_hoa %}
+        <th>{% for result in mid_hoa %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_su %}
+        <th>{% for result in mid_su %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_dia %}
+        <th>{% for result in mid_dia %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_tin %}
+        <th>{% for result in mid_tin %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_nn %}
+        <th>{% for result in mid_nn %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if mid_sinh %}
+        <th>{% for result in mid_sinh %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+      <tr>
+        <th>Cuối Kỳ</th>
+        {% if fin_toan %}
+        <th>{% for result in fin_toan %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_van %}
+        <th>{% for result in fin_van %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_ly %}
+        <th>{% for result in fin_ly %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_hoa %}
+        <th>{% for result in fin_hoa %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_su %}
+        <th>{% for result in fin_su %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_dia %}
+        <th>{% for result in fin_dia %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_tin %}
+        <th>{% for result in fin_tin %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_nn %}
+        <th>{% for result in fin_nn %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if fin_sinh %}
+        <th>{% for result in fin_sinh %}{% if result.lan_thi == 1%}{{result.diem_thi}}{% endif %}{% endfor %}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+      <tr>
+        <th>TBM</th>
+        {% if tb_toan %}
+        <th>{{tb_toan}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_van %}
+        <th>{{tb_van}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_ly %}
+        <th>{{tb_ly}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_hoa %}
+        <th>{{tb_hoa}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_su %}
+        <th>{{tb_su}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_dia %}
+        <th>{{tb_dia}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_tin %}
+        <th>{{tb_tin}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_nn %}
+        <th>{{tb_nn}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if tb_sinh %}
+        <th>{{tb_sinh}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+      {% endif %}
+      
+    </table>
+    </div>
+
+    <table>
+      <tr>
+        <th>Tổng kết</th>
+        {% if tb_mon %}
+        <th>TB: {{tb_mon}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+
+        {% if xep_loai %}
+        <th>Học lực: {{xep_loai}}</th>
+        {% else %}
+        <th></th>
+        {% endif %}
+      </tr>
+    </table>
+   
+  {% endfor %}
+  {% else %}
+  <div class="site-section">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 mb-4">
+          
+            <h3>Vui lòng nhập Mã HS hợp lệ.</h3>
+        
+          </div>
+        </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+    <div class="site-section ftco-subscribe-1" style="background-image: url('https://sachvui.vn/wp-content/uploads/review-book-site.jpg')">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h2>Hệ thống tra cứu điểm thi!</h2>
+            <p>Nhập Mã Học Sinh hợp lệ để tra cứu điểm thi của bạn</p>
+          </div>
+          <div class="col-lg-5">
+            <form action="{% url 'school:result.html' %}" method="GET">
+
+              <div class="input-group">
+                  <select class="btn-primary" name="id">
+                    {%if hk_list %}
+                    {% for hk in hk_list%}
+                    <option value="{{hk}}" selected="selected">{{hk}}</option>
+                    {% endfor %}
+                    {% endif %}
+                  </select>
+                  <input type="text" placeholder="Tra cứu ngay..." value="{{search_str2}}"
+                   class="form-control" name="key">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">
+                          <i class="ti ti-search"></i>
+                      </button>
+                  </div>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div> 
+
+
+
+    
+{% endblock %}

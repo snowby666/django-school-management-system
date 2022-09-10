@@ -1,0 +1,77 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('{% static 'school/images/banner.jpg' %}')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">THỐNG KÊ</h2>
+              <br>
+              <p>Thống kê dữ liệu học sinh và điểm số của trường PTNK.</p>
+            </div>
+          </div>
+        </div>
+    </div> 
+      
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Thống kê</span>
+      </div>
+    </div>
+    {% if username %}
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12 order-1 order-lg-2 mb-4 mb-lg-0">
+                  {% if pie %}
+                    <img src="data:image/png;base64, {{pie|safe}}">
+                  {% endif %}
+                </div>
+                <div class="col-lg-5 ml-auto align-self-center order-2 order-lg-1">
+                    <h2 class="section-title-underline mb-5">
+                        <span>Thống kê học sinh theo lớp</span>
+                    </h2>  
+                </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-lg-12 order-1 order-lg-2 mb-4 mb-lg-0">
+                      {% if pie2 %}
+                        <img src="data:image/png;base64, {{pie2|safe}}">
+                      {% endif %}
+                    </div>
+                    <div class="col-lg-5 mr-auto align-self-center order-2 order-lg-1">
+                        <h2 class="section-title-underline mb-5">
+                            <span>Thống kê học sinh theo khối</span>
+                        </h2>
+                    </div>
+                   
+            </div>
+              <div class="align-self-center">
+              <p>
+                <a href="{% url 'report:summary.html' %}" class="btn btn-primary btn-lg px-5">Tải file thống kê</a>
+              </p>
+              </div>
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="site-section">
+      <div class="container">
+          <div class="row">
+                  <div class="col-lg-10 mr-auto align-self-center order-2 order-lg-1">
+                      <h2 class="section-title-underline mb-5">
+                          <span>Vui lòng đăng nhập để xem nội dung này</span>
+                      </h2>
+                  </div>
+              </div>
+      </div>
+    </div> 
+    {% endif %}
+{% endblock %}

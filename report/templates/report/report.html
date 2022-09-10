@@ -1,0 +1,107 @@
+<head>
+    <meta charset="UTF-8">
+    <title>School Report</title>
+    <script src="https://cdn.flexmonster.com/flexmonster.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.flexmonster.com/demo.css">
+</head>
+
+<body>
+    <div id="pivot-table-container" data-url="{% url 'report:pivot_data' %}"></div>
+    <div id="pivot-chart-container"></div>
+    <div id="pivot-table-container2" data-url="{% url 'report:pivot_data2' %}"></div>
+    <div id="pivot-chart-container2"></div>
+    <script>
+        function processData(dataset) {
+            var result = []
+            dataset = JSON.parse(dataset);
+            dataset.forEach(item => result.push(item.fields));
+            return result;
+        }
+        $.ajax({
+            url: $("#pivot-table-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                new Flexmonster({
+                    container: "#pivot-table-container",
+                    componentFolder: "https://cdn.flexmonster.com/",
+                    width: "100%",
+                    height: 430,
+                    toolbar: true,
+                    report: {
+                        dataSource: {
+                            type: "json",
+                            data: processData(data),
+                        },
+                        slice: {}
+                    }
+                });
+                new Flexmonster({
+                    container: "#pivot-chart-container",
+                    componentFolder: "https://cdn.flexmonster.com/",
+                    width: "100%",
+                    height: 430,
+                    toolbar: true,
+                    report: {
+                        dataSource: {
+                            type: "json",
+                            data: processData(data)
+                        },
+                        slice: {},
+                        "options": {
+                            "viewType": "charts",
+                            "chart": {
+                                "type": "pie"
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        $.ajax({
+            url: $("#pivot-table-container2").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                new Flexmonster({
+                    container: "#pivot-table-container2",
+                    componentFolder: "https://cdn.flexmonster.com/",
+                    width: "100%",
+                    height: 430,
+                    toolbar: true,
+                    report: {
+                        dataSource: {
+                            type: "json",
+                            data: processData(data),
+                        },
+                        slice: {}
+                    }
+                });
+                new Flexmonster({
+                    container: "#pivot-chart-container2",
+                    componentFolder: "https://cdn.flexmonster.com/",
+                    width: "100%",
+                    height: 430,
+                    toolbar: true,
+                    report: {
+                        dataSource: {
+                            type: "json",
+                            data: processData(data)
+                        },
+                        slice: {},
+                        "options": {
+                            "viewType": "charts",
+                            "chart": {
+                                "type": "columns"
+                         
+                            }
+                        }
+                    }
+                });      
+                
+            }
+        });
+    </script>
+
+</body>

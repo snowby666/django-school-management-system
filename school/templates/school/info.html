@@ -1,0 +1,124 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-7">
+        <h2 class="mb-0">LỚP HỌC - HỌC SINH</h2>
+        <br>
+        <p>Thông tin về lớp học và danh sách học sinh.</p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="custom-breadcrumns border-bottom">
+  <div class="container">
+    <a href="{% url 'school:index.html' %}">Trang chủ</a>
+    <span class="mx-3 icon-keyboard_arrow_right"></span>
+    <span class="current">Lớp học - Học sinh</span>
+  </div>
+</div>
+
+    <div class="news-updates">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+             <div class="col-lg-5 mr-auto align-self-center order-2 order-lg-1">
+              <h2 class="section-title-underline mb-5"><span>Danh mục</span></h2>
+           </div>
+            <div class="row">
+              <div class="col-lg-5">
+                <div class="post-entry-big">
+                  <div class="post-content">
+                      <div class="section-heading">
+                        <a href="{% url 'school:info.html' 0%}">KHỐI</a>
+                        {% if grades %}
+                        <ul class="category">
+                          {% for grade in grades %}
+                          <li><a href="{% url 'school:info.html' grade.ma_khoi%}"> {{grade.ten_khoi}}</a></li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="post-entry-big horizontal d-flex mb-4">
+                  {% if classes %}
+                  {% for class in classes %}
+                  <div class="post-content">
+                    <h2 class="post-heading"><a href="{% url 'school:info-detail.html' class.lop_id%}">{{class.lop}} - Niên khóa {{class.nienkhoa}}</a></h2>
+                    <div class="post-meta">
+                      <a href="#">GVCN: {{class.giaovien}} - Sĩ số: {{class.si_so}}</a>
+                    </div>
+                  {% endfor %}
+                  {% endif %}
+                  <div class="row">
+                    <div class="col-12 text-center pb-4 pt-4">     
+                      {% if classes %}                   
+                          {% if classes.has_other_pages %}
+                          <div class="btn-group" role="group" aria-label="Item pagination">
+                              {% if classes.has_previous %}
+                                  <a href="?page=1"  class="btn btn-outline-primary">&laquo;</a>
+                                  <a href="?page={{ classes.previous_page_number }}
+                                  {% if request.GET.ma_khoi_id %}&ma_khoi_id={{ request.GET.ma_khoi_id }}{% endif %}
+                                  {% if request.GET.lop %}&lop={{ request.GET.lop}}{% endif %}
+                                  {% if request.GET.ma_khoi_id_1 %}&ma_khoi_id_1={{ request.GET.ma_khoi_id_1 }}{% endif %}
+                                  {% if request.GET.lop_1 %}&lop_1={{ request.GET.lop_1}}{% endif %}"
+                                  class="btn btn-outline-primary">&lt;</a>
+                              {% endif %}
+
+                              {% if classes.number|add:'-1' > 1 %}
+                                  <a href="?page={{ classes.number|add:'-2' }}" class="btn btn-outline-primary">&hellip;</a>
+                              {% endif %}
+        
+                              {% for i in classes.paginator.page_range %}
+                                  {% if classes.number == i %}
+                                      <button class="btn btn-outline-primary active">
+                                          <span>{{ i }} <span class="sr-only">(current)</span></span>
+                                      </button>
+                                  {% elif i > classes.number|add:'-2' and i < classes.number|add:'2' %}
+                                      <a href="?page={{ i }}
+                                      {% if request.GET.ma_khoi_id %}&ma_khoi_id={{ request.GET.ma_khoi_id }}{% endif %}
+                                      {% if request.GET.lop %}&lop={{ request.GET.lop}}{% endif %}
+                                      {% if request.GET.ma_khoi_id_1 %}&ma_khoi_id_1={{ request.GET.ma_khoi_id_1 }}{% endif %}
+                                      {% if request.GET.lop_1 %}&lop_1={{ request.GET.lop_1}}{% endif %}" class="btn btn-outline-primary">
+                                          {{ i }}
+                                      </a>
+                                  {% endif %}
+                              {% endfor %}
+
+                              {% if classes.paginator.num_pages > classes.number|add:'1' %}
+                                <a href="?page={{ classes.number|add:'2' }}" class="btn btn-outline-primary">&hellip;</a>
+                              {% endif %}
+
+        
+                              {% if classes.has_next %}
+                                  <a href="?page={{ classes.next_page_number }}
+                                  {% if request.GET.ma_khoi_id %}&ma_khoi_id={{ request.GET.ma_khoi_id }}{% endif %}
+                                  {% if request.GET.lop %}&lop={{ request.GET.lop}}{% endif %}
+                                  {% if request.GET.ma_khoi_id_1 %}&ma_khoi_id_1={{ request.GET.ma_khoi_id_1 }}{% endif %}
+                                  {% if request.GET.lop_1 %}&lop_1={{ request.GET.lop_1}}{% endif %}" class="btn btn-outline-primary">&gt;</a>
+                                  <a href="?page={{ classes.paginator.num_pages }}" class="btn btn-outline-primary">&raquo;</a>
+                              {% endif %}
+                          </div>
+                          {% endif %}
+                      {% else %}
+                          <p>Không tìm thấy lớp học.</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

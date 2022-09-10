@@ -1,0 +1,68 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-7">
+        <h2 class="mb-0">ĐOÀN THỂ</h2>
+        <br>
+        <p>Trường Phổ thông Năng khiếu có 3 đoàn thể. Mỗi đoàn thể sẽ chuyên lo về vấn đề hoạt động và phong trào của trường.</p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="custom-breadcrumns border-bottom">
+  <div class="container">
+    <a href="{% url 'school:index.html' %}">Trang chủ</a>
+    <span class="mx-3 icon-keyboard_arrow_right"></span>
+    <span class="current">Đoàn thể</span>
+  </div>
+</div>
+
+    <div class="news-updates">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+             <div class="col-lg-5 mr-auto align-self-center order-2 order-lg-1">
+              <h2 class="section-title-underline mb-5"><span>Danh mục</span></h2>
+           </div>
+            <div class="row">
+              <div class="col-lg-5">
+                <div class="post-entry-big">
+                  <div class="post-content">
+                      <div class="section-heading">
+                        <a href="#">ĐOÀN</a>
+                        {% if doanthe %}
+                        <ul class="category">
+                          {% for doan in doanthe %}
+                          <li><a href="{% url 'school:doanthe.html' doan.ma_doan_the %}">{{doan.ten_doan_the}}</a></li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="post-entry-big horizontal d-flex mb-4">
+                  {% if doan_list %}
+                  {% for doan in doan_list %}
+                  <div class="post-content">
+                    <div class="post-meta">
+                      <a>{{doan.hinh}}</a>
+                    </div>
+                    <h3 class="post-heading"><a href="{% url 'school:doanthe-detail.html' doan.ma_doan_the %}">Giới thiệu {{doan.ten_doan_the}}</a></h3>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

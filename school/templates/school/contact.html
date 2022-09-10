@@ -1,0 +1,79 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}   
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+        <div class="container">
+          <div class="row align-items-end">
+            <div class="col-lg-7">
+              <h2 class="mb-0">LIÊN HỆ</h2>
+              <br>
+              <p>Trường Phổ thông Năng Khiếu có cơ sở chính nằm ở khu vực Quận 5, cơ sở 2 phân hiệu Đông Hòa ở phường Linh Trung, Thủ Đức vào hoạt động. Cơ sở 2 này bắt đầu tuyển sinh từ năm 2014.</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+
+    <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="{% url 'school:index.html' %}">Trang chủ</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Liên hệ</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+              <form class="form" method="post" action="{% url 'school:contact.html' %}">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label>Tên</label>
+                      {{form.name}}
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label>Chủ đề</label>
+                      {{form.subject}}
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label>Email</label>
+                      {{form.email}}
+                    </div>	
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label>Số điện thoại</label>
+                      {{form.phone_number}}
+                    </div>	
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group message">
+                      <label>Nội dung</label>
+                      {{form.message}}
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group button">
+                      <input type="submit" value="GỬI THÔNG TIN" class="btn btn-primary btn-lg px-5">
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="title">
+                <h7 style="color:blue;">{{result}}</h6>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-section">		
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62714.92655322488!2d106.63139516331728!3d10.758903037278749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ee53a70cb6b%3A0x1be189ef14d90265!2zVHLGsOG7nW5nIFBo4buVIHRow7RuZyBOxINuZyBraGnhur91IC0gxJDhuqFpIGjhu41jIFF14buRYyBnaWEgVFAuSENN!5e0!3m2!1svi!2s!4v1658904988503!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+{% endblock %}

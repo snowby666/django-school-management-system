@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PTNK - ĐHQG TP.HCM</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="google-site-verification" content="OdJQojjJDCdM1L3vk4I68Wml1k0fvRf6DV-2UOXmYxw" />
+  
+  <link rel="icon" href='https://cdn.discordapp.com/attachments/848543264783990804/1018158094016073788/favicon.png'>
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href='{% static "school/fonts/icomoon/style.css"  %}'>
+
+  <link rel="stylesheet" href='{% static "school/css/bootstrap.min.css" %}'>
+  <link rel="stylesheet" href='{% static "school/css/jquery-ui.css" %}'>
+  <link rel="stylesheet" href='{% static "school/css/owl.carousel.min.css" %}'>
+  <link rel="stylesheet" href='{% static "school/css/owl.theme.default.min.css" %}'>
+  <link rel="stylesheet" href='{% static "school/css/themify-icons.css" %}'>
+  <link rel="stylesheet" href='{% static "school/css/scroll.css" %}'>
+
+  <link rel="stylesheet" href='{% static "school/css/jquery.fancybox.min.css" %}'>
+
+  <link rel="stylesheet" href='{% static "school/css/bootstrap-datepicker.css" %}'>
+
+  <link rel="stylesheet" href='{% static "school/fonts/flaticon/font/flaticon.css" %}'>
+
+  <link rel="stylesheet" href='{% static "school/css/aos.css" %}'>
+  <link href='{% static "school/css/jquery.mb.YTPlayer.min.css" %}' media="all" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href='{% static "school/css/style.css" %}'>
+
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <script src="https://use.fontawesome.com/fe459689b4.js"></script>
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+  <div class="site-wrap">
+
+    
+    <div class="py-2 bg-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-9 d-none d-lg-block">
+            <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Bạn có câu hỏi?</a> 
+            <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 0838 533 704</a> 
+            <a href="mailto:info@ptnk.edu.vn" class="small mr-3"><span class="icon-envelope-o mr-2"></span> info@ptnk.edu.vn</a> 
+          </div>
+          <div class="col-lg-6" style="margin-top: 10px;">
+  
+              <form action="{% url 'school:search.html' %}" method="GET">
+                  <div class="input-group">
+                      <input type="text" placeholder="Search..." value="{{search_str}}"
+                       class="form-control" name="key">
+                      <div class="input-group-append">
+                          <button class="btn btn-primary" type="submit">
+                              <i class="ti ti-search"></i>
+                          </button>
+                      </div>
+                  </div>
+              </form>
+ 
+          </div>
+          <div class="col-lg-6 text-right" style="margin-top: 10px;">
+            {% if username %}
+            <a href="{% url 'school:log_out' %}" class="small mr-3"><span class="ti-shift-right"></span> Đăng xuất</a>
+            {% else %}
+            <a href="{% url 'school:login.html' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Đăng nhập</a>
+            {% endif %}
+            {% if username %}
+            <a href="{% url 'school:profile.html' %}" class="small btn btn-primary px-6 py-2"><span class="icon-users"></span> Xin chào {{username}}</a>
+            {% else %}
+            <a href="{% url 'school:register.html' %}" class="small btn btn-primary px-4 py-2"><span class="icon-users"></span> Đăng ký</a>
+            {% endif %}
+            <a class="small btn btn-primary px-3 py-2 small mr-3" href="https://www.facebook.com/HSGVNUHCM" target="_blank"><span class="icon-facebook"></span></a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container">
+         
+          <div class="ml-auto">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="site-logo">
+                <a href="{% url 'school:index.html' %}" class="d-block" style="padding-right:10px;">
+                  <img src="https://cdn.discordapp.com/attachments/848543264783990804/1018158546094931998/ptnklogo_1.png" alt="Image" class="img-fluid">
+                </a>
+              </div>
+              <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon-menu h3"></span>
+              </a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'school:index.html' %}">Trang chủ</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'school:blog.html' latest.pk %}">Bài viết</a>
+                  </li>
+                  <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">Thông tin</a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="{% url 'school:entrance.html' %}">Tuyển sinh</a>
+                        <a class="dropdown-item" href="{% url 'school:entrance-score.html' %}">Kết quả tuyển sinh</a>
+                        <a class="dropdown-item" href="{% url 'school:result.html' %}">Kết quả học tập</a>
+                        <a class="dropdown-item" href="{% url 'school:info.html' 0 %}">Lớp học - Học sinh</a>
+                        <a class="dropdown-item" href="{% url 'report:statistic.html' %}">Thống kê</a>
+                      </div>
+                  </li>
+                  <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">Phòng ban</a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="{% url 'school:intro.html' %}">Giới thiệu</a>
+                        <a class="dropdown-item" href="{% url 'school:bct.html' 1 %}">Ban chuyên trách</a>
+                        <a class="dropdown-item" href="{% url 'school:tobomon.html' 1%}">Tổ bộ môn</a>
+                        <a class="dropdown-item" href="{% url 'school:doanthe.html' 1%}">Đoàn thể</a>
+                      </div>
+                  </li>
+                  <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">Thư viện</a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="{% url 'school:library.html' %}">Giới thiệu</a>
+                        <a class="dropdown-item" href="{% url 'school:document.html' 0%}">Tài liệu</a>
+                        <a class="dropdown-item" href="{% url 'school:feeds.html' %}">RSS Feeds</a>
+                      </div>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'school:contact.html' %}">Liên hệ</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+          </div>
+     
+      </div>
+
+    </header>
+    {% block body_block %}
+
+    {% endblock %}
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <h3 class="footer-heading"><span>THÔNG TIN LIÊN HỆ</span></h3>
+            <ul class="list-unstyled">
+                <li><a>Trường Phổ Thông Năng Khiếu, ĐHQG-HCM<hr>
+                  CS 1: 153 Nguyễn Chí Thanh, Q.5, TP.HCM<br>
+                  CS 2: Khu đô thị ĐHQG-HCM<br>
+                  Tel: (+84) 028. 838533703 -  838533704</a></li>
+                <li><a>Email: info@ptnk.edu.vn</a></li>
+                <li><a>Facebook: facebook.com/HSGVNUHCM</a></li>
+                <li><a>Website: ptnk.herokuapp.com</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4">
+              <h3 class="footer-heading"><span>TIN MỚI CẬP NHẬT</span></h3>
+              {% if three_newest%}
+              {% for news in three_newest %}
+              <ul class="list-unstyled">
+                  <li><a href="{% url 'school:blog-detail.html' news.id %}">{{news.tieu_de}}</a></li>
+                  <li><a>{{news.ngay_gui_bai}}</a></li>
+                  <hr>
+              {% endfor %}
+              {% endif %}
+          </div>
+          <div class="col-lg-4">
+              <h3 class="footer-heading"><span>LIÊN KẾT NHANH</span></h3>
+              <ul class="list-unstyled">
+                  <li><a href="{% url 'school:contact.html' %}">Liên hệ nhà trường</a></li><hr>
+                  <li><a href="{% url 'school:entrance.html' %}">Thông tin tuyển sinh</a></li><hr>
+                  <li><a href="{% url 'school:entrance-score.html' %}">Tra cứu điểm thi</a></li>
+              </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="copyright">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made by <a>Gia Bao</a> with  <i class="icon-heart" aria-hidden="true"></i>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
+  <!-- .site-wrap -->
+
+
+  <!-- loader -->
+  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#51be78"/></svg></div>
+
+  <script src='{% static "school/js/jquery-3.3.1.min.js" %}'></script>
+  <script src='{% static "school/js/jquery-migrate-3.0.1.min.js" %}'></script>
+  <script src='{% static "school/js/jquery-ui.js" %}'></script>
+  <script src='{% static "school/js/popper.min.js" %}'></script>
+  <script src='{% static "school/js/bootstrap.min.js" %}'></script>
+  <script src='{% static "school/js/owl.carousel.min.js" %}'></script>
+  <script src='{% static "school/js/jquery.stellar.min.js" %}'></script>
+  <script src='{% static "school/js/jquery.countdown.min.js" %}'></script>
+  <script src='{% static "school/js/bootstrap-datepicker.min.js" %}'></script>
+  <script src='{% static "school/js/jquery.easing.1.3.js" %}'></script>
+  <script src='{% static "school/js/aos.js" %}'></script>
+  <script src='{% static "school/js/jquery.fancybox.min.js" %}'></script>
+  <script src='{% static "school/js/jquery.sticky.js" %}'></script>
+  <script src='{% static "school/js/jquery.mb.YTPlayer.min.js" %}'></script>
+  <script src='{% static "school/js/dropdown.js" %}'></script>
+  <script src='{% static "school/js/scroll.js" %}'></script>
+  <script src='{% static "school/js/main.js" %}'></script> 
+</body>
+
+</html>

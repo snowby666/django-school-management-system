@@ -1,0 +1,139 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-7">
+        <h2 class="mb-0">TÀI LIỆU</h2>
+        <br>
+        <p>Kho lưu trữ tài liệu dành cho học sinh.</p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="custom-breadcrumns border-bottom">
+  <div class="container">
+    <a href="{% url 'school:index.html' %}">Trang chủ</a>
+    <span class="mx-3 icon-keyboard_arrow_right"></span>
+    <span class="current">Tài liệu</span>
+  </div>
+</div>
+    {% if username %}
+    <div class="news-updates">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+             <div class="col-lg-5 mr-auto align-self-center order-2 order-lg-1">
+              <h2 class="section-title-underline mb-5"><span>Danh mục</span></h2>
+           </div>
+            <div class="row">
+              <div class="col-lg-5">
+                <div class="post-entry-big">
+                  <div class="post-content">
+                      <div class="section-heading">
+                        <a href="{% url 'school:document.html' 0%}">KHỐI</a>
+                        {% if grades %}
+                        <ul class="category">
+                          {% for grade in grades %}
+                          <li><a href="{% url 'school:document.html' grade.ma_khoi%}"> {{grade.ten_khoi}}</a></li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="post-entry-big horizontal d-flex mb-4">
+                  {% if documents %}
+                  {% for doc in documents %}
+                  <div class="post-content">
+                    <div class="post-meta">
+                      <a href="#">{{doc.ngay_upload}}</a>
+                      <span class="mx-1">/</span>
+                      <a href="#">{{doc.ma_khoi}}</a>, <a href="#">{{doc.ma_mon}}</a>
+                    </div>
+                    <h3 class="post-heading"><a href="{{doc.pdf}}">{{doc.ten_tai_lieu|truncatewords:20}}</a></h3>
+                    <h6 class="content">{{doc.tom_tat|truncatewords:50}}</h6>
+                  {% endfor %}
+                  {% endif %}
+                  <div class="row">
+                    <div class="col-12 text-center pb-4 pt-4">     
+                      {% if documents %}                   
+                          {% if documents.has_other_pages %}
+                          <div class="btn-group" role="group" aria-label="Item pagination">
+                              {% if documents.has_previous %}
+                                  <a href="?page=1"  class="btn btn-outline-primary">&laquo;</a>
+                                  <a href="?page={{ documents.previous_page_number }}
+                                  {% if request.GET.ma_khoi_id %}&ma_khoi_id={{ request.GET.ma_khoi_id }}{% endif %}
+                                  {% if request.GET.ten_tai_lieu %}&ten_tai_lieu={{ request.GET.ten_tai_lieu}}{% endif %}
+                                  {% if request.GET.ma_khoi_id_1 %}&ma_khoi_id_1={{ request.GET.ma_khoi_id_1 }}{% endif %}
+                                  {% if request.GET.ten_tai_lieu_1 %}&ten_tai_lieu_1={{ request.GET.ten_tai_lieu_1}}{% endif %}"
+                                  class="btn btn-outline-primary">&lt;</a>
+                              {% endif %}
+
+                              {% if documents.number|add:'-1' > 1 %}
+                                <a href="?page={{ documents.number|add:'-2' }}" class="btn btn-outline-primary">&hellip;</a>
+                              {% endif %}
+        
+                              {% for i in documents.paginator.page_range %}
+                                  {% if documents.number == i %}
+                                      <button class="btn btn-outline-primary active">
+                                          <span>{{ i }} <span class="sr-only">(current)</span></span>
+                                      </button>
+                                  {% elif i > documents.number|add:'-2' and i < documents.number|add:'2'  %}
+                                      <a href="?page={{ i }}
+                                      {% if request.GET.ma_khoi_id %}&ma_khoi_id={{ request.GET.ma_khoi_id }}{% endif %}
+                                      {% if request.GET.ten_tai_lieu %}&ten_tai_lieu={{ request.GET.ten_tai_lieu}}{% endif %}
+                                      {% if request.GET.ma_khoi_id_1 %}&ma_khoi_id_1={{ request.GET.ma_khoi_id_1 }}{% endif %}
+                                      {% if request.GET.ten_tai_lieu_1 %}&ten_tai_lieu_1={{ request.GET.ten_tai_lieu_1}}{% endif %}" class="btn btn-outline-primary">
+                                          {{ i }}
+                                      </a>
+                                  {% endif %}
+                              {% endfor %}
+
+                              {% if documents.paginator.num_pages > documents.number|add:'1' %}
+                                <a href="?page={{ documents.number|add:'2' }}" class="btn btn-outline-primary">&hellip;</a>
+                              {% endif %}
+        
+                              {% if documents.has_next %}
+                                  <a href="?page={{ documents.next_page_number }}
+                                  {% if request.GET.ma_khoi_id %}&ma_khoi_id={{ request.GET.ma_khoi_id }}{% endif %}
+                                  {% if request.GET.ten_tai_lieu %}&ten_tai_lieu={{ request.GET.ten_tai_lieu}}{% endif %}
+                                  {% if request.GET.ma_khoi_id_1 %}&ma_khoi_id_1={{ request.GET.ma_khoi_id_1 }}{% endif %}
+                                  {% if request.GET.ten_tai_lieu_1 %}&ten_tai_lieu_1={{ request.GET.ten_tai_lieu_1}}{% endif %}" class="btn btn-outline-primary">&gt;</a>
+                                  <a href="?page={{ documents.paginator.num_pages }}" class="btn btn-outline-primary">&raquo;</a>
+                              {% endif %}
+                          </div>
+                          {% endif %}
+                      {% else %}
+                          <p>Không tìm thấy tài liệu.</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="site-section">
+      <div class="container">
+          <div class="row">
+                  <div class="col-lg-10 mr-auto align-self-center order-2 order-lg-1">
+                      <h2 class="section-title-underline mb-5">
+                          <span>Vui lòng đăng nhập để xem nội dung này</span>
+                      </h2>
+                  </div>
+              </div>
+      </div>
+    </div> 
+    {% endif %}
+{% endblock %}

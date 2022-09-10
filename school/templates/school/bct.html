@@ -1,0 +1,69 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('https://cdn.discordapp.com/attachments/848543264783990804/1018157041069596743/banner.jpg')">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-7">
+        <h2 class="mb-0">BAN CHUYÊN TRÁCH</h2>
+        <br>
+        <p>Thông tin về các ban lãnh đạo nhà trường.</p>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="custom-breadcrumns border-bottom">
+  <div class="container">
+    <a href="{% url 'school:index.html' %}">Trang chủ</a>
+    <span class="mx-3 icon-keyboard_arrow_right"></span>
+    <span class="current">Ban chuyên trách</span>
+  </div>
+</div>
+
+    <div class="news-updates">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+             <div class="col-lg-5 mr-auto align-self-center order-2 order-lg-1">
+              <h2 class="section-title-underline mb-5"><span>Danh mục</span></h2>
+           </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="post-entry-big">
+                  <div class="post-content">
+                      <div class="section-heading">
+                        <a href="#">PHÒNG BAN</a>
+                        {% if banchuyentrach %}
+                        <ul class="category">
+                          {% for ban in banchuyentrach %}
+                          <li><a href="{% url 'school:bct.html' ban.ma_ban %}"> {{ban.ten_ban}}</a></li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="post-entry-big horizontal d-flex mb-4">
+                  {% if bct_list %}
+                  {% for ban in bct_list %}
+                  <div class="post-content">
+                    <div class="post-meta">
+                      <a>{{ban.hinh}}</a>
+                    </div>
+                    <h3 class="post-heading"><a>Giới thiệu {{ban.ten_ban}}</a></h3>
+                    <h6 class="content">{{ban.mo_ta|safe}}</h6>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
